@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RewardBee - Earn Rewards</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial;background:#fffbea;color:#222}
+header{background:#171717;color:#ffd52a;padding:24px;text-align:center}
+header h1{margin:0;font-size:30px}
+header p{color:white}
+nav{display:flex;justify-content:space-around;background:#292929;padding:15px}
+nav a{color:white;text-decoration:none;font-size:14px}
+main{max-width:650px;margin:auto;padding:16px}
+.card{background:white;padding:20px;margin:15px 0;border-radius:14px;box-shadow:0 3px 12px #ddd}
+.balance{background:#ffd52a;text-align:center}
+.balance h2{font-size:32px;margin:10px}
+button{background:#ffd52a;border:0;padding:13px 20px;border-radius:8px;font-weight:bold;cursor:pointer}
+input{width:100%;padding:13px;margin:8px 0;border:1px solid #ccc;border-radius:8px}
+footer{text-align:center;padding:20px;color:#666}
+</style>
+</head>
+<body>
+<header>
+<h1>🐝 RewardBee</h1>
+<p>Complete Tasks & Earn Points</p>
+</header>
+
+<nav>
+<a href="#home">Home</a>
+<a href="#tasks">Tasks</a>
+<a href="#account">Account</a>
+</nav>
+
+<main>
+<section id="home" class="card">
+<h2>Welcome to RewardBee!</h2>
+<p>Complete tasks and collect reward points.</p>
+</section>
+
+<section class="card balance">
+<h3>My Points</h3>
+<h2 id="points">0</h2>
+<p>Demo Points</p>
+</section>
+
+<section id="account" class="card">
+<h2>Create Your Account</h2>
+<input id="username" placeholder="Enter your name">
+<button onclick="login()">Continue</button>
+<p id="welcome"></p>
+</section>
+
+<section id="tasks">
+<h2>Daily Tasks</h2>
+
+<div class="card">
+<h3>Task 1 - Visit Website</h3>
+<p>Reward: 10 Points</p>
+<button onclick="earn(10,'task1')">Complete Demo Task</button>
+</div>
+
+<div class="card">
+<h3>Task 2 - Read Article</h3>
+<p>Reward: 20 Points</p>
+<button onclick="earn(20,'task2')">Complete Demo Task</button>
+</div>
+
+<div class="card">
+<h3>Task 3 - Daily Check-in</h3>
+<p>Reward: 5 Points</p>
+<button onclick="earn(5,'task3')">Complete Demo Task</button>
+</div>
+</section>
+
+<section class="card">
+<h2>About RewardBee</h2>
+<p>RewardBee is a task and rewards demo platform.</p>
+<p>Points shown here are demo points and have no cash value.</p>
+</section>
+</main>
+
+<footer>
+© 2026 RewardBee. All rights reserved.
+</footer>
+
+<script>
+let points=0;
+let completed=[];
+
+function login(){
+let name=document.getElementById('username').value.trim();
+if(!name){
+alert('Please enter your name');
+return;
+}
+document.getElementById('welcome').innerText='Welcome, '+name+'!';
+}
+
+function earn(amount,id){
+if(completed.includes(id)){
+alert('You have already completed this task!');
+return;
+}
+completed.push(id);
+points+=amount;
+document.getElementById('points').innerText=points;
+alert(amount+' demo points added!');
+}
+</script>
+</body>
+</html>
