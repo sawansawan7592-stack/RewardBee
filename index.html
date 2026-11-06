@@ -85,30 +85,58 @@ footer{text-align:center;padding:20px;color:#666}
 <footer>
 © 2026 RewardBee. All rights reserved.
 </footer>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-app.js";
 
-<script>
-let points=0;
-let completed=[];
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/13.2.0/firebase-auth.js";
+const firebaseConfig = {
+  apiKey: "AIzaSyDnabVNl20KH77WtdmsJJq0T6D2QEg0-oU",
+  authDomain: "rewardbee-7592.firebaseapp.com",
+  projectId: "rewardbee-7592",
+  storageBucket: "rewardbee-7592.firebasestorage.app",
+  messagingSenderId: "862186837261",
+  appId: "1:862186837261:web:66bb29539bd3e4f43a0c44"
+};
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
 
-function login(){
-let name=document.getElementById('username').value.trim();
-if(!name){
-alert('Please enter your name');
-return;
+async function login() {
+  try {
+    const result = await signInWithPopup(auth, provider);
+    document.getElementById("welcome").innerText =
+      "Welcome, " + result.user.displayName + "!";
+  } catch (error) {
+    alert("Login failed: " + error.message);
+  }
 }
-document.getElementById('welcome').innerText='Welcome, '+name+'!';
-}
+window.login = login;
 
-function earn(amount,id){
-if(completed.includes(id)){
-alert('You have already completed this task!');
-return;
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    document.getElementById("welcome").innerText =
+      "Welcome, " + user.displayName + "!";
+  }
+});
+let points = 0;
+let completed = [];
+
+function earn(amount, id) {
+  if (completed.includes(id)) {
+    alert("You have already completed this task!");
+    return;
+  }
+  completed.push(id);
+  points += amount;
+  document.getElementById("points").innerText = points;
+  alert(amount + " demo points added!");
 }
-completed.push(id);
-points+=amount;
-document.getElementById('points').innerText=points;
-alert(amount+' demo points added!');
-}
+window.earn = earn;
 </script>
 </body>
 </html>
